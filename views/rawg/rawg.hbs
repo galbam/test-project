@@ -1,0 +1,14 @@
+<h1>RAWG</h1>
+
+<form action="/rawg-search" method="GET">
+  <input type="text" name="gameName">
+  <button type="submit">Search</button>
+</form>
+
+
+{{#each rawg.results}}
+<img src={{background_image}} height="300" width="500">
+{{/each}}
+
+<a href="/rawg-next/2">Next_Page</a>
+<p>{{rawg.next}}</p>

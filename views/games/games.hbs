@@ -1,0 +1,43 @@
+<h1>LIST OF GAMES</h1>
+
+<form action="/games-search" method="GET">
+  <input type="text" name="gameName">
+  <button type="submit">Search</button>
+</form>
+
+<div class="container">
+  <div class="row">
+    
+    {{#each games}}
+
+      {{#if name}}
+        {{#if cover.url}}
+          {{#if first_release_date}}
+          
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col">
+                  <div class="d-flex">
+                    <div>
+                      <img src="{{cover.url}}">
+                    </div>
+                    <div class="card">
+                      <a href="/games/{{id}}">{{name}}</a>
+                      <p>{{version_parent}}</p>
+                      <p>{{toDate first_release_date}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          {{/if}}
+        {{/if}}
+      {{/if}}
+
+    {{/each}}
+
+  </div>
+</div>
+<br>
+<a href="/games-next/50">NextPage</a>

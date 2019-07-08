@@ -1,0 +1,14 @@
+<h1>Game details</h1>
+
+{{#each gameInfo}}
+  <h4>{{game.name}}</h4>
+
+  <label>Cover:</label><br>
+  <img src="{{game.cover.url}}"><br>
+
+  <label>Screenshots</label><br>
+  {{#each game.screenshots}}
+    <img src="{{url}}" alt="">
+  {{/each}}
+  <br>
+{{/each}}
