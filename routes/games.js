@@ -1,8 +1,11 @@
 const express = require("express");
 const axios = require("axios");
 const hbs = require("hbs");
-const go = require("gojs");
+
+const Favorite = require("../models/Favorite");
+
 const router = express.Router();
+const CountriesApi = require("./CountryHandler.js");
 
 const IGDB = require("igdb-api-node").default;
 const apiKey = "39fb8cac0ae4190e1d2d564985023e7d";
@@ -61,10 +64,57 @@ router.get("/games/:gameId", async (req, res) => {
 
   let formatedResponse = mapCollection(response[0].game.collection.games);
   
+  //let countries = await getCountriesArr(response[0].game.involved_companies);
+
   res.render("games/game-details.hbs", {
+    gameId,
     games: response,
-    formatedResponse: formatedResponse
+    formatedResponse
   });
+
+});
+
+router.get("/favorites", (req, res) => {
+
+  Favorite.find()
+    .then(favorites => {
+      res.render("games/game-favorites.hbs", { favorites });
+    })
+    .catch(err => {
+      console.log("Error while retrieving the favorite games: ", err);
+    });
+
+});
+
+router.post("/favorites/add", (req, res) => {
+
+  const { idGame, name, coverUrl, releaseDate, summary } = req.body;
+
+  Favorite.exists({"game_id":idGame})
+    .then(fav => {
+      if(fav){
+        console.log("Already exists", fav);
+      }
+      else{
+        //Add
+        Favorite.create({
+          game_id: idGame,
+          name,
+          cover_url: coverUrl,
+          first_release_date: releaseDate,
+          summary
+        })
+          .then(() => {
+            console.log("Success");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    })
+    .catch(err => {
+      console.log("Error while retrieving favorites: ", err);
+    });
 });
 
 
@@ -178,6 +228,36 @@ async function gameTimeLine(gameName, offset = 0, limit = 50) {
   }
 }
 
+async function getCountriesArr(countryCollection) {
+
+  let finalCountries = [];
+
+  try {
+    const countriesObj = new CountriesApi();
+    const countriesArr = await countriesObj.getCountries();
+
+    countryCollection.forEach(countryX => {
+      if (countryX.company.country) {
+        let countryFound = countriesArr.find(f => {
+          if (f.numericCode == countryX.company.country) {
+            return f;
+          }
+        });
+
+        if (countryFound) {
+          finalCountries.push({
+            country: countryX.company.name,
+            latlng: countryFound.latlng
+          });
+        }
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  return finalCountries;
+}
 
 //JS HELPERS
 function getYearsAgo(year1) {
@@ -233,12 +313,6 @@ function mapCollection(collection){
   collection.sort(compare);
 
   let result = [];
-  result.push({
-    key: 0,
-    name: collection[0].name,
-    first_release_date: formatUnixDate(collection[0].first_release_date),
-    url: getCoverBig(collection[0].cover.url)
-  });
 
   for (let i = 0; i < collection.length; i++) {
 
@@ -254,6 +328,7 @@ function mapCollection(collection){
 
   return result;
 }
+
 
 
 module.exports = router;

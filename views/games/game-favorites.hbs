@@ -1,0 +1,12 @@
+<h1>Favorite Game</h1>
+
+{{#each favorites}}
+<h4 id="game-name">{{name}}</h4>
+
+<label>Cover:</label><br>
+<img id="cover-url" src="{{cover_url}}"><br>
+<label>First Release date: </label>
+<p id="release-date">{{first_release_date}}</p><br>
+<p id="summary">{{summary}}</p><br>
+<hr>
+{{/each}}

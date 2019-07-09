@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const axios = require("axios");
-var fs = require("fs");
+//const axios = require("axios");
+//var fs = require("fs");
 
 const Countries = require("./CountryHandler.js");
 

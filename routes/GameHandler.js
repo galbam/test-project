@@ -1,0 +1,11 @@
+class GameHandler{
+  constructor(){
+
+  }
+
+  saveFavoriteGame(){
+
+    
+  }
+
+}

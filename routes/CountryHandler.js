@@ -6,9 +6,11 @@ class CountryHandler {
   }
 
   async getCountries() {
+    
     try {
       let response = await axios.get(this.url);
       return response.data;
+      
     } catch (error) {
       console.log(error);
     }
