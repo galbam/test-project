@@ -1,10 +1,8 @@
 <h1>SEARCH RESULT</h1>
 
-
 {{#each gameInfo}}
 
   {{#if cover.url}}
-    {{!-- {{#if first_release_date}} --}}
       <h4>{{name}}</h4>
 
       <label>Cover:</label><br>
@@ -14,9 +12,6 @@
       {{#each screenshots}}
       <img src="{{url}}">
       {{/each}}
-    {{!-- {{/if}} --}}
   {{/if}}
 
 {{/each}}
-
-

@@ -56,5 +56,6 @@ app.use('/', index);
 
 app.use("/", require("./routes/games"));
 app.use("/", require("./routes/rawg"));
+app.use("/", require("./routes/countries"));
 
 module.exports = app;
