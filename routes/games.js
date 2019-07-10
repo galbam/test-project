@@ -319,7 +319,6 @@ async function mapCollection(collection){
   });
 
   filteredArray.sort(compare);
-  console.log(filteredArray);
   
   let result = [];
 
@@ -331,7 +330,8 @@ async function mapCollection(collection){
           filteredArray[i].first_release_date
         ),
         parent: i,
-        url: getCoverBig(filteredArray[i].cover.url)
+        url: getCoverBig(filteredArray[i].cover.url),
+        link: filteredArray[i].id
       });
   }
 
@@ -348,9 +348,11 @@ async function mapOnlyTheGame(onlyTheGame) {
       name: onlyTheGame.name,
       first_release_date: formatUnixDate(onlyTheGame.first_release_date),
       parent: i,
-      url: getCoverBig(onlyTheGame.cover.url)
+      url: getCoverBig(onlyTheGame.cover.url),
+      link: onlyTheGame.id
     });
   }
+
   return await result;
 }
 
