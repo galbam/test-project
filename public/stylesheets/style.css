@@ -123,24 +123,6 @@
   justify-content: center;
   align-items: center; }
 
-.btn-primary {
-  border: 0px;
-  border-radius: 0px;
-  margin-top: 20px;
-  margin-left: 70px;
-  font-size: 19px;
-  width: 200px; }
-
-.btn-default {
-  border: 0px;
-  border-radius: 0px;
-  margin-top: 20px;
-  font-size: 19px;
-  width: 200px; }
-
-.btn-default:hover {
-  background: #454545; }
-
 h1 {
   font-size: 40px;
   margin-top: 20px;
@@ -152,16 +134,6 @@ h1 {
   margin-top: 17px;
   border-radius: 0px;
   font-size: 19px; }
-
-.btn-info {
-  border-radius: 0px;
-  border: 0px;
-  margin-top: 20px;
-  margin-left: 30px;
-  width: 480px;
-  height: 40px;
-  font-size: 19px;
-  transition: 1s; }
 
 .btn-github {
   border: 0px;
@@ -186,5 +158,8 @@ h1 {
 .btn-google:hover {
   background: transparent;
   border: 2px solid #ffb320; }
+
+.profile-header {
+  transform: translateY(5rem); }
 
 /*# sourceMappingURL=style.css.map */

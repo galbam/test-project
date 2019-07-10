@@ -4,7 +4,7 @@ const Game = require("../models/Game");
 const uploadCloud = require("../config/cloudinary.js");
 const hbs = require("hbs");
 
-hbs.registerHelper("toDate", date => new Date(date).toDateString());
+//hbs.registerHelper("toDate", date => new Date(date).toDateString());
 hbs.registerHelper("toDate2", date => formatDate(date));
 
 //HELPERS

@@ -2,22 +2,22 @@
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-<h1>Game details</h1>
 <div class="container">
+<h1>Game details</h1>
   {{#each games}}
-  <div class="row py-5 px-4">
+  <div class="row">
     <div class="col mx-auto">
 
       <!-- Profile widget -->
       <div class="bg-white rounded overflow-hidden">
-        <div class="px-4 pt-0 pb-4 bg-dark">
+        <div class="px-4 pt-0 pb-4" style="background-color: #131313;">
           <div class="media align-items-end profile-header">
             <div class="profile mr-3">
-              <img src="{{t_cover_big game.cover.url}}" class="rounded mb-2 img-thumbnail">
+              <img id="cover-url" src="{{t_cover_big game.cover.url}}" class="rounded mb-2 img-thumbnail">
             </div>
             <div class="media-body mb-5 text-white">
-              <h4 class="mt-0 mb-0">{{game.name}}</h4>
-              <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>{{toDate game.first_release_date}}</p>
+              <h4 id="game-name" class="mt-0 mb-0">{{game.name}}</h4>
+              <p id="release-date" class="small mb-4">{{toDate game.first_release_date}}</p>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
               <h5 class="font-weight-bold mb-0 d-block">{{game.popularity}}</h5>
             </li>
             <li class="list-inline-item">
-              <button id="game-favorite">Favorite</button>
+              <button class="btn btn-warning" id="game-favorite">Favorite</button>
             </li>
           </ul>
         </div>
@@ -39,55 +39,68 @@
         <div class="py-4">
           <h5 class="mb-3">Summary</h5>
           <div class="p-4 bg-light rounded shadow-sm">
-            <p class="font-italic mb-0">{{game.summary}}</p>
+            <p id="summary" class="font-italic mb-0">{{game.summary}}</p>
           </div>
         </div>
 
+        <div class="py-4">
         <h5 class="mb-3">Genres</h5>
         <div class="p-4 bg-light rounded shadow-sm">
-        {{#each game.genres}}
-          <p class="">{{name}}</p>
-        {{/each}}
+          <ol>
+          {{#each game.genres}}
+            <li>{{name}}</li>
+          {{/each}}
+        </ol>
+        </div>
         </div>
 
-        <label>Involved Companies:</label><br>
-        {{#each game.involved_companies}}
-        <label>{{company.name}}</label><br>
-        <label>{{company.country}}</label><br>
-        <img src="{{company.logo.url}}"><br>
-        {{/each}}
-        <br>
+        <div class="py-4">
+        <h5 class="mb-3">Involved Companies</h5>
+        <div class="p-4 bg-light rounded shadow-sm">
+        <ol>
+          {{#each game.involved_companies}}
+            <li>{{company.name}}</li>
+          {{/each}}
+        </ol>
+        </div>
+        </div>
 
-        <div class="py-4 px-4">
+        <div class="py-4">
           <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="mb-0">Screenshots</h5>
+            <h5 class="mb-3">Screenshots</h5>
           </div>
           <div class="row">
             <div class="col">
+              <div class="p-4 bg-light rounded shadow-sm">
               {{#each game.screenshots}}
               <img src="{{t_cover_big url}}" class="img-fluid rounded shadow-sm">
               {{/each}}
+              </div>
             </div>
           </div>
           <div class="py-4">
             <h5 class="mb-3">Videos</h5>
             <div class="row">
               <div class="col">
-                {{#each game.videos}}
-                <iframe width="500" height="300" src="https://www.youtube.com/embed/{{video_id}}?enablejsapi=1">
-                </iframe>
-                {{/each}}
+                <div class="p-4 bg-light rounded shadow-sm">
+                  {{#each game.videos}}
+                  <iframe width="400" height="300" src="https://www.youtube.com/embed/{{video_id}}?enablejsapi=1">
+                  </iframe>
+                  {{/each}}
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
       
     </div>
   </div>
   {{/each}}
-  <label>TIME LINE</label>
-  <div id="myDiagramDiv" style="border: solid 1px black; height: 300px">
+  <div>
+  <h2 class="mb-3">Timeline</h2>
+  <div id="myDiagramDiv" style="border: solid 1px black; height: 400px">
     <script>
 
       function timeLine(arr) {
@@ -255,6 +268,8 @@
       timeLine({{{ json formatedResponse }}});
 
     </script>
+  </div>
+  <br>
   </div>
 </div>
 
