@@ -3,280 +3,515 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
 <h1>Game details</h1>
+<div class="container">
+  {{#each games}}
+  <div class="row py-5 px-4">
+    <div class="col mx-auto">
 
-{{#each games}}
-  <button id="game-favorite">Save as favorite</button><br>
+      <!-- Profile widget -->
+      <div class="bg-white rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark">
+          <div class="media align-items-end profile-header">
+            <div class="profile mr-3">
+              <img src="{{t_cover_big game.cover.url}}" class="rounded mb-2 img-thumbnail">
+            </div>
+            <div class="media-body mb-5 text-white">
+              <h4 class="mt-0 mb-0">{{game.name}}</h4>
+              <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>{{toDate game.first_release_date}}</p>
+            </div>
+          </div>
+        </div>
 
-  <h4 id="game-name">{{game.name}}</h4>
+        <div class="bg-light p-4 d-flex justify-content-end text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{game.total_rating}}</h5>
+            </li>
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{game.popularity}}</h5>
+            </li>
+            <li class="list-inline-item">
+              <button id="game-favorite">Favorite</button>
+            </li>
+          </ul>
+        </div>
 
-  <label>Cover:</label><br>
-  <img id="cover-url" src="{{t_cover_big game.cover.url}}"><br>
-  <label>First Release date: </label><p id="release-date">{{toDate game.first_release_date}}</p><br>
-  <p id="summary">{{game.summary}}</p><br>
+        <div class="py-4">
+          <h5 class="mb-3">Summary</h5>
+          <div class="p-4 bg-light rounded shadow-sm">
+            <p class="font-italic mb-0">{{game.summary}}</p>
+          </div>
+        </div>
 
-  <label>Popularity:</label><p>{{game.popularity}}</p><br>
-  <label>Rating:</label><p>{{game.total_rating}}</p><br>
+        <h5 class="mb-3">Genres</h5>
+        <div class="p-4 bg-light rounded shadow-sm">
+        {{#each game.genres}}
+          <p class="">{{name}}</p>
+        {{/each}}
+        </div>
 
-  <label>Genres:</label><br>
-  {{#each game.genres}}
-    <label>{{name}}</label>
+        <label>Involved Companies:</label><br>
+        {{#each game.involved_companies}}
+        <label>{{company.name}}</label><br>
+        <label>{{company.country}}</label><br>
+        <img src="{{company.logo.url}}"><br>
+        {{/each}}
+        <br>
+
+        <div class="py-4 px-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">Screenshots</h5>
+          </div>
+          <div class="row">
+            <div class="col">
+              {{#each game.screenshots}}
+              <img src="{{t_cover_big url}}" class="img-fluid rounded shadow-sm">
+              {{/each}}
+            </div>
+          </div>
+          <div class="py-4">
+            <h5 class="mb-3">Videos</h5>
+            <div class="row">
+              <div class="col">
+                {{#each game.videos}}
+                <iframe width="500" height="300" src="https://www.youtube.com/embed/{{video_id}}?enablejsapi=1">
+                </iframe>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
   {{/each}}
-  <br>
+  <label>TIME LINE</label>
+  <div id="myDiagramDiv" style="border: solid 1px black; height: 300px">
+    <script>
 
-  <label>Involved Companies:</label><br>
-  {{#each game.involved_companies}}
+      function timeLine(arr) {
+        var $ = go.GraphObject.make; // for conciseness in defining templates
+        var model = $(go.TreeModel);
+        model.nodeDataArray = arr;
+
+        myDiagram = $(
+          go.Diagram,
+          "myDiagramDiv", // must be the ID or reference to div
+          {
+            maxSelectionCount: 1, // users can select only one part at a time
+            validCycle: go.Diagram.CycleDestinationTree, // make sure users can only create trees
+
+            layout: $(go.TreeLayout, {
+              treeStyle: go.TreeLayout.StyleLastParents,
+              arrangement: go.TreeLayout.ArrangementHorizontal,
+
+              // properties for most of the tree:
+              angle: 180,
+              layerSpacing: 35,
+
+              // properties for the "last parents":
+              alternateAngle: 180,
+              alternateLayerSpacing: 40,
+              alternateAlignment: go.TreeLayout.AlignmentBus,
+              alternateNodeSpacing: 30
+            }),
+            "undoManager.isEnabled": true // enable undo & redo
+          }
+        );
+
+        var levelColors = [
+          "#AC193D",
+          "#2672EC",
+          "#8C0095",
+          "#5133AB",
+          "#008299",
+          "#D24726",
+          "#008A00",
+          "#094AB2"
+        ];
+
+        // override TreeLayout.commitNodes to also modify the background brush based on the tree depth level
+        myDiagram.layout.commitNodes = function () {
+          go.TreeLayout.prototype.commitNodes.call(myDiagram.layout); // do the standard behavior
+          // then go through all of the vertexes and set their corresponding node's Shape.fill
+          // to a brush dependent on the TreeVertex.level value
+          myDiagram.layout.network.vertexes.each(function (v) {
+            if (v.node) {
+              var level = v.level % levelColors.length;
+              var color = levelColors[level];
+              var shape = v.node.findObject("SHAPE");
+              if (shape)
+                shape.fill = $(go.Brush, "Linear", {
+                  0: color,
+                  1: go.Brush.lightenBy(color, 0.05),
+                  start: go.Spot.Left,
+                  end: go.Spot.Right
+                });
+            }
+          });
+        };
+
+        // This function provides a common style for most of the TextBlocks.
+        // Some of these values may be overridden in a particular TextBlock.
+        function textStyle() {
+          return { font: "9pt  Segoe UI,sans-serif", stroke: "white" };
+        }
+
+        // define the Node template
+        myDiagram.nodeTemplate = $(
+          go.Node,
+          "Auto",
+          {
+          },
+          // for sorting, have the Node.text be the data.name
+          // new go.Binding("text", "name"),
+          // bind the Part.layerName to control the Node's layer depending on whether it isSelected
+          new go.Binding("layerName", "isSelected", function (sel) {
+            return sel ? "Foreground" : "";
+          }).ofObject(),
+          // define the node's outer shape
+          $(go.Shape, "Rectangle", {
+            name: "SHAPE",
+            fill: "white",
+            stroke: null,
+            // set the port properties:
+            portId: "",
+            fromLinkable: true,
+            toLinkable: true,
+            cursor: "pointer"
+          }),
+          $(
+            go.Panel,
+            "Horizontal",
+
+            $(
+              go.Picture,
+              {
+                name: "Picture",
+                desiredSize: new go.Size(150, 200),
+                margin: new go.Margin(6, 8, 6, 10)
+              },
+              new go.Binding("source", "url")
+            ),
+
+            // define the panel where the text will appear
+            $(
+              go.Panel,
+              "Table",
+              {
+                maxSize: new go.Size(200, 999),
+                margin: new go.Margin(6, 10, 0, 3),
+                defaultAlignment: go.Spot.Left
+              },
+              $(go.RowColumnDefinition, { column: 2, width: 4 }),
+              $(
+                go.TextBlock,
+                textStyle(), // the name
+                {
+                  row: 0,
+                  column: 0,
+                  columnSpan: 5,
+                  font: "12pt Segoe UI,sans-serif",
+                  editable: true,
+                  isMultiline: false,
+                  minSize: new go.Size(20, 16)
+                },
+                new go.Binding("text", "name").makeTwoWay()
+              ),
+              $(go.TextBlock, "Date: ", textStyle(), { row: 1, column: 0 }),
+              $(
+                go.TextBlock,
+                textStyle(),
+                {
+                  row: 1,
+                  column: 1,
+                  columnSpan: 4,
+                  editable: true,
+                  isMultiline: false,
+                  minSize: new go.Size(10, 14),
+                  margin: new go.Margin(0, 0, 0, 3)
+                },
+                new go.Binding("text", "first_release_date").makeTwoWay()
+              ),
+            ) // end Table Panel
+          ) // end Horizontal Panel
+        ); // end Node
+
+        // the context menu allows users to make a position vacant,
+        // remove a role and reassign the subtree, or remove a department
+
+        // define the Link template
+        myDiagram.linkTemplate = $(
+          go.Link,
+          go.Link.Orthogonal,
+          { corner: 5, relinkableFrom: true, relinkableTo: true },
+          $(go.Shape, { strokeWidth: 4, stroke: "#00a4a4" })
+        ); // the link shape
+
+        myDiagram.model = model;
+      }
+
+      timeLine({{{ json formatedResponse }}});
+
+    </script>
+  </div>
+</div>
+
+{{!-- <h1>Game details</h1>
+<div class="content">
+  <div>
+    {{#each games}}
+    <button id="game-favorite">Save as favorite</button><br>
+
+    <h4 id="game-name">{{game.name}}</h4>
+
+    <label>Cover:</label><br>
+    <img id="cover-url" src="{{t_cover_big game.cover.url}}"><br>
+    <label>First Release date: </label>
+    <p id="release-date">{{toDate game.first_release_date}}</p><br>
+    <p id="summary">{{game.summary}}</p><br>
+
+    <label>Popularity:</label>
+    <p>{{game.popularity}}</p><br>
+    <label>Rating:</label>
+    <p>{{game.total_rating}}</p><br>
+
+    <label>Genres:</label><br>
+    {{#each game.genres}}
+    <label>{{name}}</label>
+    {{/each}}
+    <br>
+
+    <label>Involved Companies:</label><br>
+    {{#each game.involved_companies}}
     <label>{{company.name}}</label><br>
     <label>{{company.country}}</label><br>
     <img src="{{company.logo.url}}"><br>
-  {{/each}}
-  <br>
+    {{/each}}
+    <br>
 
-  <label>Platforms:</label><br>
-  {{#each game.platforms}}
+    <label>Platforms:</label><br>
+    {{#each game.platforms}}
     <label>{{slug}}</label>
-  {{/each}}
-  <br>
+    {{/each}}
+    <br>
 
-  <label>Screenshots:</label><br>
-  {{#each game.screenshots}}
+    <label>Screenshots:</label><br>
+    {{#each game.screenshots}}
     <img src="{{t_cover_big url}}" alt="">
-  {{/each}}
-  <br>
+    {{/each}}
+    <br>
 
-  <label>Videos:</label><br>
-  {{#each game.videos}}
-  <iframe width="600" height="400" 
-  src="https://www.youtube.com/embed/{{video_id}}?enablejsapi=1">
-  </iframe>
-  {{/each}}
+    <label>Videos:</label><br>
+    {{#each game.videos}}
+    <iframe width="500" height="300" src="https://www.youtube.com/embed/{{video_id}}?enablejsapi=1">
+    </iframe>
+    {{/each}}
 
-  <br>
-  <br>
-  <br>
-  <label>TIME LINE</label>
+    {{/each}}
+    <br>
+    <br>
+    <label>TIME LINE</label>
+    <div id="myDiagramDiv" style="border: solid 1px black; height: 300px">
+      <script>
 
-{{/each}}
+        function timeLine(arr) {
+          var $ = go.GraphObject.make; // for conciseness in defining templates
+          var model = $(go.TreeModel);
+          model.nodeDataArray = arr;
 
-<div id="myDiagramDiv" style="border: solid 1px black; height: 250px">
-  <script>
+          myDiagram = $(
+            go.Diagram,
+            "myDiagramDiv", // must be the ID or reference to div
+            {
+              maxSelectionCount: 1, // users can select only one part at a time
+              validCycle: go.Diagram.CycleDestinationTree, // make sure users can only create trees
 
-    function timeLine(arr) {
-      var $ = go.GraphObject.make; // for conciseness in defining templates
-      var model = $(go.TreeModel);
-      model.nodeDataArray = arr;
+              layout: $(go.TreeLayout, {
+                treeStyle: go.TreeLayout.StyleLastParents,
+                arrangement: go.TreeLayout.ArrangementHorizontal,
 
-      myDiagram = $(
-        go.Diagram,
-        "myDiagramDiv", // must be the ID or reference to div
-        {
-          maxSelectionCount: 1, // users can select only one part at a time
-          validCycle: go.Diagram.CycleDestinationTree, // make sure users can only create trees
+                // properties for most of the tree:
+                angle: 180,
+                layerSpacing: 35,
 
-          layout: $(go.TreeLayout, {
-            treeStyle: go.TreeLayout.StyleLastParents,
-            arrangement: go.TreeLayout.ArrangementHorizontal,
+                // properties for the "last parents":
+                alternateAngle: 180,
+                alternateLayerSpacing: 40,
+                alternateAlignment: go.TreeLayout.AlignmentBus,
+                alternateNodeSpacing: 30
+              }),
+              "undoManager.isEnabled": true // enable undo & redo
+            }
+          );
 
-            // properties for most of the tree:
-            angle: 180,
-            layerSpacing: 35,
+          var levelColors = [
+            "#AC193D",
+            "#2672EC",
+            "#8C0095",
+            "#5133AB",
+            "#008299",
+            "#D24726",
+            "#008A00",
+            "#094AB2"
+          ];
 
-            // properties for the "last parents":
-            alternateAngle: 180,
-            alternateLayerSpacing: 40,
-            alternateAlignment: go.TreeLayout.AlignmentBus,
-            alternateNodeSpacing: 30
-          }),
-          "undoManager.isEnabled": true // enable undo & redo
-        }
-      );
+          // override TreeLayout.commitNodes to also modify the background brush based on the tree depth level
+          myDiagram.layout.commitNodes = function () {
+            go.TreeLayout.prototype.commitNodes.call(myDiagram.layout); // do the standard behavior
+            // then go through all of the vertexes and set their corresponding node's Shape.fill
+            // to a brush dependent on the TreeVertex.level value
+            myDiagram.layout.network.vertexes.each(function (v) {
+              if (v.node) {
+                var level = v.level % levelColors.length;
+                var color = levelColors[level];
+                var shape = v.node.findObject("SHAPE");
+                if (shape)
+                  shape.fill = $(go.Brush, "Linear", {
+                    0: color,
+                    1: go.Brush.lightenBy(color, 0.05),
+                    start: go.Spot.Left,
+                    end: go.Spot.Right
+                  });
+              }
+            });
+          };
 
-      var levelColors = [
-        "#AC193D",
-        "#2672EC",
-        "#8C0095",
-        "#5133AB",
-        "#008299",
-        "#D24726",
-        "#008A00",
-        "#094AB2"
-      ];
-
-      // override TreeLayout.commitNodes to also modify the background brush based on the tree depth level
-      myDiagram.layout.commitNodes = function () {
-        go.TreeLayout.prototype.commitNodes.call(myDiagram.layout); // do the standard behavior
-        // then go through all of the vertexes and set their corresponding node's Shape.fill
-        // to a brush dependent on the TreeVertex.level value
-        myDiagram.layout.network.vertexes.each(function (v) {
-          if (v.node) {
-            var level = v.level % levelColors.length;
-            var color = levelColors[level];
-            var shape = v.node.findObject("SHAPE");
-            if (shape)
-              shape.fill = $(go.Brush, "Linear", {
-                0: color,
-                1: go.Brush.lightenBy(color, 0.05),
-                start: go.Spot.Left,
-                end: go.Spot.Right
-              });
+          // This function provides a common style for most of the TextBlocks.
+          // Some of these values may be overridden in a particular TextBlock.
+          function textStyle() {
+            return { font: "9pt  Segoe UI,sans-serif", stroke: "white" };
           }
-        });
-      };
 
-      // This function provides a common style for most of the TextBlocks.
-      // Some of these values may be overridden in a particular TextBlock.
-      function textStyle() {
-        return { font: "9pt  Segoe UI,sans-serif", stroke: "white" };
-      }
-
-      // define the Node template
-      myDiagram.nodeTemplate = $(
-        go.Node,
-        "Auto",
-        {
-        },
-        // for sorting, have the Node.text be the data.name
-        // new go.Binding("text", "name"),
-        // bind the Part.layerName to control the Node's layer depending on whether it isSelected
-        new go.Binding("layerName", "isSelected", function (sel) {
-          return sel ? "Foreground" : "";
-        }).ofObject(),
-        // define the node's outer shape
-        $(go.Shape, "Rectangle", {
-          name: "SHAPE",
-          fill: "white",
-          stroke: null,
-          // set the port properties:
-          portId: "",
-          fromLinkable: true,
-          toLinkable: true,
-          cursor: "pointer"
-        }),
-        $(
-          go.Panel,
-          "Horizontal",
-
-          $(
-            go.Picture,
+          // define the Node template
+          myDiagram.nodeTemplate = $(
+            go.Node,
+            "Auto",
             {
-              name: "Picture",
-              desiredSize: new go.Size(150, 200),
-              margin: new go.Margin(6, 8, 6, 10)
             },
-            new go.Binding("source", "url")
-          ),
-
-          // define the panel where the text will appear
-          $(
-            go.Panel,
-            "Table",
-            {
-              maxSize: new go.Size(200, 999),
-              margin: new go.Margin(6, 10, 0, 3),
-              defaultAlignment: go.Spot.Left
-            },
-            $(go.RowColumnDefinition, { column: 2, width: 4 }),
+            // for sorting, have the Node.text be the data.name
+            // new go.Binding("text", "name"),
+            // bind the Part.layerName to control the Node's layer depending on whether it isSelected
+            new go.Binding("layerName", "isSelected", function (sel) {
+              return sel ? "Foreground" : "";
+            }).ofObject(),
+            // define the node's outer shape
+            $(go.Shape, "Rectangle", {
+              name: "SHAPE",
+              fill: "white",
+              stroke: null,
+              // set the port properties:
+              portId: "",
+              fromLinkable: true,
+              toLinkable: true,
+              cursor: "pointer"
+            }),
             $(
-              go.TextBlock,
-              textStyle(), // the name
-              {
-                row: 0,
-                column: 0,
-                columnSpan: 5,
-                font: "12pt Segoe UI,sans-serif",
-                editable: true,
-                isMultiline: false,
-                minSize: new go.Size(20, 16)
-              },
-              new go.Binding("text", "name").makeTwoWay()
-            ),
-            $(go.TextBlock, "Date: ", textStyle(), { row: 1, column: 0 }),
-            $(
-              go.TextBlock,
-              textStyle(),
-              {
-                row: 1,
-                column: 1,
-                columnSpan: 4,
-                editable: true,
-                isMultiline: false,
-                minSize: new go.Size(10, 14),
-                margin: new go.Margin(0, 0, 0, 3)
-              },
-              new go.Binding("text", "first_release_date").makeTwoWay()
-            ),
-          ) // end Table Panel
-        ) // end Horizontal Panel
-      ); // end Node
+              go.Panel,
+              "Horizontal",
 
-      // the context menu allows users to make a position vacant,
-      // remove a role and reassign the subtree, or remove a department
+              $(
+                go.Picture,
+                {
+                  name: "Picture",
+                  desiredSize: new go.Size(150, 200),
+                  margin: new go.Margin(6, 8, 6, 10)
+                },
+                new go.Binding("source", "url")
+              ),
 
-      // define the Link template
-      myDiagram.linkTemplate = $(
-        go.Link,
-        go.Link.Orthogonal,
-        { corner: 5, relinkableFrom: true, relinkableTo: true },
-        $(go.Shape, { strokeWidth: 4, stroke: "#00a4a4" })
-      ); // the link shape
+              // define the panel where the text will appear
+              $(
+                go.Panel,
+                "Table",
+                {
+                  maxSize: new go.Size(200, 999),
+                  margin: new go.Margin(6, 10, 0, 3),
+                  defaultAlignment: go.Spot.Left
+                },
+                $(go.RowColumnDefinition, { column: 2, width: 4 }),
+                $(
+                  go.TextBlock,
+                  textStyle(), // the name
+                  {
+                    row: 0,
+                    column: 0,
+                    columnSpan: 5,
+                    font: "12pt Segoe UI,sans-serif",
+                    editable: true,
+                    isMultiline: false,
+                    minSize: new go.Size(20, 16)
+                  },
+                  new go.Binding("text", "name").makeTwoWay()
+                ),
+                $(go.TextBlock, "Date: ", textStyle(), { row: 1, column: 0 }),
+                $(
+                  go.TextBlock,
+                  textStyle(),
+                  {
+                    row: 1,
+                    column: 1,
+                    columnSpan: 4,
+                    editable: true,
+                    isMultiline: false,
+                    minSize: new go.Size(10, 14),
+                    margin: new go.Margin(0, 0, 0, 3)
+                  },
+                  new go.Binding("text", "first_release_date").makeTwoWay()
+                ),
+              ) // end Table Panel
+            ) // end Horizontal Panel
+          ); // end Node
 
-      myDiagram.model = model;
-    }
+          // the context menu allows users to make a position vacant,
+          // remove a role and reassign the subtree, or remove a department
 
-    timeLine({{{json formatedResponse}}});
+          // define the Link template
+          myDiagram.linkTemplate = $(
+            go.Link,
+            go.Link.Orthogonal,
+            { corner: 5, relinkableFrom: true, relinkableTo: true },
+            $(go.Shape, { strokeWidth: 4, stroke: "#00a4a4" })
+          ); // the link shape
 
-  </script>
-</div>
+          myDiagram.model = model;
+        }
+
+        timeLine({{{ json formatedResponse }}});
+
+      </script>
+    </div>
+  </div>
+</div> --}}
 
 <script>
 
   document.getElementById('game-favorite').onclick = () => {
 
     let BASE_URL = "http://localhost:3000/favorites/add";
-    let idGame = {{gameId}};
-    let name = document.getElementById("game-name").innerText;
-    let coverUrl = document.getElementById("cover-url").getAttribute("src");
-    let releaseDate = document.getElementById("release-date").innerText;
-    let summary = document.getElementById("summary").innerText;
+    let idGame = {{ gameId }};
 
-    axios
-      .post(BASE_URL, {
-        idGame,
-        name,
-        coverUrl,
-        releaseDate,
-        summary
-      })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  let name = document.getElementById("game-name").innerText;
+  let coverUrl = document.getElementById("cover-url").getAttribute("src");
+  let releaseDate = document.getElementById("release-date").innerText;
+  let summary = document.getElementById("summary").innerText;
+
+  axios
+    .post(BASE_URL, {
+      idGame,
+      name,
+      coverUrl,
+      releaseDate,
+      summary
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   };
 
 </script>
 
-
-
-
-{{!-- <div id='map' style='width: 85vw; height: 60vh; margin:50px auto;'>
-</div>
-
-<script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYW5nbWluc2hlbmciLCJhIjoiY2pydDhjMjlwMXhpaDN5cHMxcjNya2ZmbyJ9.Tc5kmo0vZ1VKJbLK83OloA';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9'
-    });
-    
-    let places = {{{json countries}}};
-        places.forEach(place => {
-
-          const coordinates = place.latlng.reverse();
-
-          let marker = new mapboxgl.Marker()
-            .setLngLat(coordinates)
-            .addTo(map);
-        });
-
-</script> --}}

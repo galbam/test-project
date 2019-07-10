@@ -1,64 +1,81 @@
 <h1>Local Games</h1>
 
-<form action="/searchlocalgame" method="POST">
-  <input type="text" name="searchbyname">
-  <button type="submit">Search</button><br>
+<div class="content">
+  <form action="/searchlocalgame" method="GET">
 
-  <label for="genre">Genre: </label>
-  <select name="searchbygenre" id="selectGenre">
-  <option value="selectgenre">Select</option>
-  <option value="adventure">Adventure</option>
-  <option value="action">Action</option>
-  <option value="fighting">Fighting</option>
-  <option value="survivalhorror">Survival Horror</option>
-  <option value="racing">Racing</option>
-  <option value="sports">Sports</option>
-  <option value="rythm">Rythm</option>
-  <option value="puzzle">Puzzle</option>
-  <option value="educational">Educational</option>
-  <option value="serious">Serious</option>
-  <option value="others">Others</option>
-  </select><br>
+    <div class="form-group">
+      <div class="d-flex">
+        <input class="form-control" type="text" name="searchbyname">
+        <button class="btn btn-info" type="submit">Search</button><br>
+      </div>
+    </div>
 
-  <label for="serie">Serie: </label>
-  <select name="searchbyserie" id="selectSerie">
-  <option value="selectserie">Select</option>
-  <option value="mario">Mario</option>
-  <option value="mariosonic">Mario/Sonic</option>
-  <option value="pokemon">Pokémon</option>
-  <option value="grandtheftauto">Grand Theft Auto</option>
-  <option value="fifa">FIFA</option>
-  <option value="callofduty">Call of Duty</option>
-  <option value="wii">Wii</option>
-  <option value="thesims">The Sims</option>
-  <option value="sonic">Sonic</option>
-  <option value="need">Need</option>
-  <option value="forspeed">For Speed</option>
-  <option value="finalfantasy">Final Fantasy</option>
-  <option value="tetris">Tetris</option>
-  <option value="thelegendofzelda">The Legend of Zelda</option>
-  <option value="proevolutionsocce">Pro Evolution Socce</option>
-  <option value="lego">Lego</option>
-  <option value="others">Others</option>
-  </select><br>
-</form>
+    {{!-- <div class="form-group">
+      <label for="genre">Genre: </label>
+      <select class="form-control" name="searchbygenre" id="selectGenre">
+        <option value="selectgenre">Select</option>
+        <option value="adventure">Adventure</option>
+        <option value="action">Action</option>
+        <option value="fighting">Fighting</option>
+        <option value="survivalhorror">Survival Horror</option>
+        <option value="racing">Racing</option>
+        <option value="sports">Sports</option>
+        <option value="rythm">Rythm</option>
+        <option value="puzzle">Puzzle</option>
+        <option value="educational">Educational</option>
+        <option value="serious">Serious</option>
+        <option value="others">Others</option>
+      </select>
+    </div>
 
-<div class="localgames-wrapper">
-{{#each games}}
-<div class="localgames-item">
-<h1>{{name}}</h1>
-<p><img src="{{imgPath}}" alt="yourgameimg"></p>
-<p>Genre:{{genre}}</p>
-<p>Serie:{{serie}}</p>
-<p>Publisher:{{publisher}}</p>
-<p>First release:{{toDate firstrelease}}</p>
-<p>Summary:{{summary}}</p>
-<a href="/detailslocalgame/{{_id}}">Deteils</a><br>
-<a href="/updatelocalgame/{{_id}}">Edit Game</a><br>
-<a href="/deletelocalgame/{{_id}}">Delete</a><br>
+    <div class="form-group">
+      <label for="serie">Serie: </label>
+      <select class="form-control" name="searchbyserie" id="selectSerie">
+        <option value="selectserie">Select</option>
+        <option value="mario">Mario</option>
+        <option value="mariosonic">Mario/Sonic</option>
+        <option value="pokemon">Pokémon</option>
+        <option value="grandtheftauto">Grand Theft Auto</option>
+        <option value="fifa">FIFA</option>
+        <option value="callofduty">Call of Duty</option>
+        <option value="wii">Wii</option>
+        <option value="thesims">The Sims</option>
+        <option value="sonic">Sonic</option>
+        <option value="need">Need</option>
+        <option value="forspeed">For Speed</option>
+        <option value="finalfantasy">Final Fantasy</option>
+        <option value="tetris">Tetris</option>
+        <option value="thelegendofzelda">The Legend of Zelda</option>
+        <option value="proevolutionsocce">Pro Evolution Socce</option>
+        <option value="lego">Lego</option>
+        <option value="others">Others</option>
+      </select>
+    </div> --}}
+  </form>
+</div>
 
- </div>
-  {{else}}
+<div>
+  <div class="localgames-wrapper">
+    {{#each games}}
+    <div class="localgames-item">
+      
+        <h2>{{name}}</h2>
+        <p><img src="{{imgPath}}"></p>
+        <p>Genre:{{genre}}</p>
+        <p>Serie:{{serie}}</p>
+        <p>Publisher:{{publisher}}</p>
+        <p>First release:{{toDate firstrelease}}</p>
+        <p>Summary:{{summary}}</p>
+
+        <div class="d-flex justify-content-between">
+        <a class="btn btn-success" href="/detailslocalgame/{{_id}}">Details</a><br>
+        <a class="btn btn-info" href="/updatelocalgame/{{_id}}">Edit Game</a><br>
+        <a class="btn btn-danger" href="/deletelocalgame/{{_id}}" >Delete</a><br>
+        </div>
+
+    </div>
+    {{else}}
     <p>There are no games yet! :(</p>
-  {{/each}}
+    {{/each}}
+  </div>
 </div>
