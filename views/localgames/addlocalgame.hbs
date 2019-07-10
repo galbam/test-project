@@ -1,0 +1,60 @@
+<h1>Add a new Game</h1>
+
+ <form action="/addlocalgame" method="post" enctype="multipart/form-data">
+
+  <label for="photo">Image: </label>
+  <input type="file" name="photo" id="photo" /><br>
+
+  <label for="name">Name: </label>
+  <input type="text" name="name" id="name" /><br>
+
+  <label for="genre">Genre: </label>
+   <select name="genre" id="selectGenre">
+  <option value="selectgenre">Select</option>
+  <option value="adventure">Adventure</option>
+  <option value="action">Action</option>
+  <option value="fighting">Fighting</option>
+  <option value="survivalhorror">Survival Horror</option>
+  <option value="racing">Racing</option>
+  <option value="sports">Sports</option>
+  <option value="rythm">Rythm</option>
+  <option value="puzzle">Puzzle</option>
+  <option value="educational">Educational</option>
+  <option value="serious">Serious</option>
+  <option value="others">Others</option>
+  </select><br>
+
+  <label for="serie">Serie: </label>
+  <select name="serie" id="selectSerie">
+  <option value="selectserie">Select</option>
+  <option value="mario">Mario</option>
+  <option value="mariosonic">Mario/Sonic</option>
+  <option value="pokemon">Pokémon</option>
+  <option value="grandtheftauto">Grand Theft Auto</option>
+  <option value="fifa">FIFA</option>
+  <option value="callofduty">Call of Duty</option>
+  <option value="wii">Wii</option>
+  <option value="thesims">The Sims</option>
+  <option value="sonic">Sonic</option>
+  <option value="need">Need</option>
+  <option value="forspeed">For Speed</option>
+  <option value="finalfantasy">Final Fantasy</option>
+  <option value="tetris">Tetris</option>
+  <option value="thelegendofzelda">The Legend of Zelda</option>
+  <option value="proevolutionsocce">Pro Evolution Socce</option>
+  <option value="lego">Lego</option>
+  <option value="others">Others</option>
+  </select><br>
+
+  <label for="publisher">Publishers: </label>
+  <input type="text" name="publisher" id="publisher" /><br>
+
+  <label for="firstrelease">First release: </label>
+  <input type="date" name="firstrelease" id="firstrelease" /><br>
+
+  <label for="summary">Summary: </label>
+  <input type="text" name="summary" id="summary" /><br>
+
+  <button type="submit">Add GAME</button>
+
+</form>

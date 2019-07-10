@@ -1,0 +1,18 @@
+<h1> Games </h1>
+<div class="localgames-wrapper">
+{{#each games}}
+<div class="localgames-item">
+<h1>{{this.name}}</h1>
+<p><img src="{{this.imgPath}}" alt="yourgameimg"></p>
+<p>Genre:{{this.genre}}</p>
+<p>Serie:{{this.serie}}</p>
+<p>Publisher:{{this.publisher}}</p>
+<p>First release:{{toDate this.firstrelease}}</p>
+<p>Summary:{{this.summary}}</p>
+
+<a href="/detailslocalgame/{{_id}}">Deteils</a><br>
+<a href="/updatelocalgame/{{_id}}">Edit Game</a><br>
+<a href="/deletelocalgame/{{_id}}">Delete</a><br>
+
+ </div>
+</div>
