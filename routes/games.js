@@ -50,11 +50,9 @@ router.get("/games-next/:pageNumber", async (req, res) => {
 router.get("/games-search", async (req, res) => {
 
   const gameName = req.query.gameName;
-
   const response = await searchGames(gameName);
 
   res.render("games/games.hbs", { games: response });
-  ////res.render("games/game-search.hbs", { gameInfo: response });
 });
 
 router.get("/games/:gameId", async (req, res) => {
@@ -62,9 +60,13 @@ router.get("/games/:gameId", async (req, res) => {
 
   const response = await gameDetails(gameId);
 
-  let formatedResponse = mapCollection(response[0].game.collection.games);
-  
-  //let countries = await getCountriesArr(response[0].game.involved_companies);
+  let formatedResponse;
+  if(response[0].game.collection){
+    formatedResponse = await mapCollection(response[0].game.collection.games);
+  }
+  else{
+    formatedResponse = await mapOnlyTheGame(response[0].game);
+  }
 
   res.render("games/game-details.hbs", {
     gameId,
@@ -308,7 +310,7 @@ function getCoverBig(coverUrlToBig){
   return coverUrlToBig.replace("t_thumb", "t_cover_big");
 }
 
-function mapCollection(collection){
+async function mapCollection(collection){
 
   collection.sort(compare);
 
@@ -326,9 +328,22 @@ function mapCollection(collection){
   
   }
 
-  return result;
+  return await result;
 }
 
+async function mapOnlyTheGame(onlyTheGame) {
+  let result = [];
+  let i = 0;
 
+  result.push({
+    key: i + 1,
+    name: onlyTheGame.name,
+    first_release_date: formatUnixDate(onlyTheGame.first_release_date),
+    parent: i,
+    url: getCoverBig(onlyTheGame.cover.url)
+  });
+
+  return await result;
+}
 
 module.exports = router;
