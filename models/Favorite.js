@@ -19,5 +19,4 @@ const favoriteSchema = new Schema(
 );
 
 const Favorite = mongoose.model("favorite", favoriteSchema);
-
 module.exports = Favorite;

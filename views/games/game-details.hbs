@@ -45,10 +45,9 @@
 
   <label>Videos:</label><br>
   {{#each game.videos}}
-  <video width="300" height="200" controls>
-    <source src="{{youtube video_id}}" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <iframe width="600" height="400" 
+  src="https://www.youtube.com/embed/{{video_id}}?enablejsapi=1">
+  </iframe>
   {{/each}}
 
   <br>
