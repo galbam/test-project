@@ -1,5 +1,42 @@
+<div class="login-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <Signup class="col-md-6" style="background: rgba(255,255,255,0,1);margin-top: 60px;height:430px;">
+        <form action="/signup" method="POST" id="form-container">
+          <a href="/signup">
+            <div class="btn btn-primary">Sign up</div>
+          </a>
+          <a href="/login">
+            <div class="btn btn-default">Login</div>
+          </a>
+          <h1 class="text-center">Sign up for free</h1>
+          <input id="username" type="text" class="form-control" name="username" placeholder="username">
+          <input id="password" type="password" class="form-control" name="password" placeholder="password">
+          <a href="#">
+            <div class="btn btn-info">Sign up Now!</div>
+          </a>
+          <h5 class="text-center">or</h5>
+
+          <div class="d-flex">
+            <a href="/github"><div class="btn btn-github"><i class="fab fa-github"></i></div></a>
+          
+            <a href="/google"><Signup class="btn btn-google"><i class="fab fa-google"></i> </a>
+          </div>
+          
+          </div>
+
+    {{#if message}}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
+    </form>
+  </div>
+</div>
+</div>
+</div>
+
 <!-- views/auth/signup.hbs -->
-<h2>Signup</h2>
+{{!-- <h2>Signup</h2>
 
 <form action="/signup" method="POST" id="form-container">
   <label for="username">Username</label>
@@ -23,4 +60,4 @@
 
 
   </p>
-</form>
+</form> --}}

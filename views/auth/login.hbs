@@ -1,19 +1,41 @@
-<form action="/login" method="POST">
-  <div>
+{{!-- <div class="login-container">
+  <h1></h1>
+  <div class="login">
+  <div clsss="form-login">
+    <form action="/login" method="POST">
+
     <label for="username">Username:</label>
-    <input type="text" name="username">
-  </div>
-  <div>
+    <input type="text" name="username"><br>
+  
     <label for="password">Password:</label>
-    <input type="password" name="password">
-  </div>
-  {{#if message}}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
-  <div>
+    <input type="password" name="password"><br>
+
     <input type="submit" value="Log In">
-    
+    </form>
   </div>
-</form>
-<a href="/github">Login via github</a>
-<a href="/google">Login via google</a>
+  <div class="social-login">
+    <a href="/github">Login via github</a><br>
+    <a href="/google">Login via google</a>
+  </div>
+{{#if message}}
+    <div class="error-message">{{ message }}</div>
+{{/if}}
+</div>
+</div> --}}
+<div class="login-container">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="background: rgba(255,255,255,0,1);margin-top: 60px;height:430px;">
+      <a href="#"><div class="btn btn-primary">Sign up</div></a>
+      <a href="#"><div class="btn btn-default">Login</div></a>
+      <h1 class="text-center">Sign up for free</h1>
+           <input type="text" class="form-control" name="username" placeholder="username">
+           <input type="password" class="form-control" name="password" placeholder="password">
+           <a href="#"><div class="btn btn-info">Sign up Now!</div></a>
+       </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+</div>
+  
