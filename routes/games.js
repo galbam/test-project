@@ -8,7 +8,7 @@ const router = express.Router();
 const CountriesApi = require("./CountryHandler.js");
 
 const IGDB = require("igdb-api-node").default;
-const apiKey = "39fb8cac0ae4190e1d2d564985023e7d";
+const apiKey = "504a2ad15b5a0d57b52d57745d13a071";
 
 //HBS HELPERS
 hbs.registerHelper("toDate", UNIX_timestamp => {
