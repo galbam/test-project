@@ -1,88 +1,55 @@
-{{!-- <div class="signin-container">
- <form action="/signup" method="POST" id="form-container" class="p-3 mb-2 bg-light text-dark">
-    <div class="d-flex flex-column.justify-content-around">
-    <dir class="p-2">
-          <h1 class="text-center">Sign up for free</h1>
-    </div>
-    <div class="p-2"> 
-          <input id="username" type="text" class="form-control" name="username" placeholder="username">
-    </div>
-    <div class="p-2"> 
-          <input id="password" type="password" class="form-control" name="password" placeholder="password">
-    </div>
-    <div class="p-2"> 
-      {{#if message}}
-              <div class="error-message">{{ message }}</div>
-      {{/if}}
-    </div>
-    <div class="p-2"> 
-      <h5 class="text-center"><div class="btn btn-warning btn-lg">Sign up Now!</div><div><br>or</h5>
-    </div>
-    <div class="p-2"> 
-      <div class="d-flex justify-content-around">
-            <a href="/github"><div class="btn btn-outline-dark">Sign up via <i class="fab fa-github"></i></div></a>
-            <a href="/google"><div class="btn btn-outline-dark">Sign up via <i class="fab fa-google"></i></div></a>
-      </div>
-    </div>
-    <div class="p-2">
-      <h6 class="text-center">Do you already have an account? <a href="/login">Login</a></h6>
-    </div>
-    </div>  
-    </form>
-</div> --}}
-
-
-<!-- views/auth/signup.hbs -->
 <div class="signin-container">
- <form action="/signup" method="POST" id="form-container" class="p-3 mb-2 bg-light text-dark">
- <div class="d-flex flex-column.justify-content-around">
+  <form action="/signup" method="POST" id="form-container" class="p-3 mb-2 bg-light text-dark">
+    <div class="container">
 
-    <dir class="p-2">
-          <h1 class="text-center">Sign up for free</h1>
+      <div>
+        <h1 class="text-center">Sign up for free</h1>
+      </div>
+
+      <div class="form-group">
+        <div>
+          {{!-- <label for="username">Username</label> --}}
+          <input class="form-control" id="username" type="text" name="username" placeholder="username"
+            style="width:100%;height:5vh;">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          {{!-- <label for="password">Password</label> --}}
+          <input class="form-control" id="password" type="password" name="password" placeholder="password"
+            style="width:100%;height:5vh;">
+        </div>
+      </div>
+      <div class="p-2">
+        {{#if message}}
+        <div class="error-message">{{ message }}</div>
+        {{/if}}
+      </div>
+
+      <div class="p-2">
+        <h5 class="text-center">
+          <button class="btn btn-primary">Create account</button>
+          <div><br>or
+        </h5>
+      </div>
+
+      <div class="p-2">
+        <div class="d-flex justify-content-around">
+          <a href="/github">
+            <div class="btn btn-outline-dark">Sign up via <i class="fab fa-github"></i></div>
+          </a>
+          <a href="/google">
+            <div class="btn btn-outline-dark">Sign up via <i class="fab fa-google"></i></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="p-2">
+        <h6 class="text-center">Do you already have an account? <a href="/login">Login</a></h6>
+      </div>
+
     </div>
 
-    <div class="p-2"> 
-      {{!-- <label for="username">Username</label> --}}
-      <input id="username" type="text" name="username"  placeholder="username" style="width:20vw;height:5vh;">
-    </div>
-
-    <div class="p-2"> 
-     {{!-- <label for="password">Password</label> --}}
-    <input id="password" type="password" name="password" placeholder="password" style="width:20vw;height:5vh;">
-   </div>
-
-   <div class="p-2"> 
-    {{#if message}}
-    <div class="error-message">{{ message }}</div>
-    {{/if}}
-    </div>
-
-    <div class="p-2"> 
-      <h5 class="text-center"><button>Create account</button><div><br>or</h5>
-    </div>
-
-     <div class="p-2"> 
-      <div class="d-flex justify-content-around">
-            <a href="/github"><div class="btn btn-outline-dark">Sign up via <i class="fab fa-github"></i></div></a>
-            <a href="/google"><div class="btn btn-outline-dark">Sign up via <i class="fab fa-google"></i></div></a>
-       </div>
-     </div>
-
-    <div class="p-2">
-      <h6 class="text-center">Do you already have an account? <a href="/login">Login</a></h6>
-    </div>
-    
-    </div>  
-    
-</form>
+  </form>
 </div>
-
-  
-    {{!-- <a href="/github">Signup via github</a>
-    <a href="/google">Signup via google</a>
-
-  <p class="account-message">
-    Do you already have an account?
-    <a href="/login">Login</a>
-  </p> --}}
-
