@@ -10,12 +10,12 @@
 
     <div class="form-group">
       <label for="photo">Image: </label>
-      <input class="form-control-file form-control-sm" type="file" name="photo" id="photo" />
+      <input class="form-control-file form-control-sm" type="file" name="photo" id="photo" required />
     </div>
 
     <div class="form-group">
       <label for="name">Name: </label>
-      <input class="form-control" type="text" name="name" id="name" value="{{game.name}}" />
+      <input class="form-control" type="text" name="name" id="name" value="{{game.name}}" required />
     </div>
 
     <div class="form-group">
@@ -60,13 +60,13 @@
       </select>
     </div>
 
-    <div class="form-group" <label for="publisher">Publishers: </label>
+    <div class="form-group" for="publisher">Publishers: </label>
       <input class="form-control" type="text" name="publisher" id="publisher" value="{{game.publisher}}" />
     </div>
 
     <div class="form-group">
       <label for="firstrelease">First release: </label>
-      <input class="form-control" type="date" name="firstrelease" id="firstrelease"
+      <input class="form-control" type="date" name="firstrelease" id="firstrelease" required
         value="{{toDate2 game.firstrelease}}" />
     </div>
 

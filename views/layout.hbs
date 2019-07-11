@@ -12,86 +12,101 @@
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
-
 	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-
 
 	<!-- original -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 	<link rel="stylesheet" href="/stylesheets/style.css" />
-
-
 </head>
 
 <body>
-<!-- facebookshare start-->
+	<!-- facebookshare start-->
 	<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=1729421983827320&autoLogAppEvents=1"></script>
-<!-- facebookshare end-->
+	<script async defer crossorigin="anonymous"
+		src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=1729421983827320&autoLogAppEvents=1"></script>
+	<!-- facebookshare end-->
 
-	<header>
-		<header class="header-section">
-		<div>
-					<!-- site menu -->
-			<div class="logo">
-				<img src="/img/logo.png" alt="">
-			</div>
+	<nav class="header-section navbar navbar-expand-lg">
 
-			<nav class="main-menu">
-				<ul>
-					{{#if user}}
-					<li><a href="/">GAME SHINKA進化</a></li>
-					<li><a href="/games">Show All Games</a></li>
-					<li><a href="/localgames">Local Games</a></li>
-					<li><a href="/addlocalgame">Add Games</a></li>
-					<li><a href="/favorites">Favorites Games</a></li>
-
-					{{else}}
-					<li><a href="/">GAME SHINKA進化</a></li>
-					<li><a href="/games">Show All Games</a></li>
-					{{/if}}
-				</ul>
-		 	</nav>
-
-			 {{#if user}}
-			 <div class="user-panel">
-				<a href="/logout">Logout</a>
-			</div>
-			{{else}}
-			<div class="user-panel">
-				<a href="/login">Login</a>  /  <a href="/signup">Signup</a>
-			</div>
-			 {{/if}}
+		<!-- site menu -->
+		<div class="logo navbar-brand">
+			<img src="/img/logo.png">
 		</div>
-	</header>
 
-  {{{body}}}
+		<!-- Collapse button -->
+		<button class="navbar-toggler toggler-example" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false"
+			aria-label="Toggle navigation"><span style="color: #ffb320"><i class="fas fa-bars fa-1x"></i></span></button>
+
+		<!-- Collapsible content -->
+		<div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+			<ul class="navbar-nav mr-auto">
+				{{#if user}}
+				<li class="nav-item"><a class="nav-link" href="/">GAME SHINKA進化</a></li>
+				<li class="nav-item"><a class="nav-link" href="/games">Show All Games</a></li>
+				<li class="nav-item"><a class="nav-link" href="/localgames">Local Games</a></li>
+				<li class="nav-item"><a class="nav-link" href="/addlocalgame">Add Games</a></li>
+				<li class="nav-item"><a class="nav-link" href="/favorites">Favorites Games</a></li>
+				{{else}}
+				<li class="nav-item"><a class="nav-link" href="/">GAME SHINKA進化</a></li>
+				<li class="nav-item"><a class="nav-link" href="/games">Show All Games</a></li>
+				{{/if}}
+			</ul>
+
+			<div>
+				{{#if user}}
+				<div class="user-panel">
+					<a href="/logout">Logout</a>
+				</div>
+				{{else}}
+				<div class="user-panel text-center">
+					<a href="/login">Login</a> / <a href="/signup">Signup</a>
+				</div>
+				{{/if}}
+			</div>
+
+		</div>
+	</nav>
+
+	{{{body}}}
 
 	<!-- Footer section -->
 	<footer class="footer-section">
-	<div class="footer-container">
+		<div>
 
-	<div>
-	<p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved  <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  </p>
-	</div>
-  <div class="footer-menu">
-	<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-	</div>
-	</div>
+			<div class="d-flex justify-content-between">
+				<div class="copyright">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o"
+						aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</div>
+				<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"
+					data-size="small"><a target="_blank"
+						href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+						class="fb-xfbml-parse-ignore">Share</a>
+				</div>
+			</div>
+
+		</div>
 	</footer>
 	<!-- Footer section end -->
 
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/javascripts/script.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="/javascripts/script.js"></script>
 
 </body>
 
