@@ -32,47 +32,82 @@ router.get("/localgames", (req, res) => {
 });
 
 //add new game
-router.get("/addlocalgame", (req, res) => {
-  res.render("localgames/addlocalgame");
+router.get("/addlocalgame", async (req, res) => {
+
+  let games = await getGames();
+  res.render("localgames/addlocalgame", { games });
+
 });
 
-router.post("/addlocalgame", uploadCloud.single("photo"), (req, res, next) => {
-  //console.log("--------",req.body.genre)
-  const { name, publisher, firstrelease, summary } = req.body;
-  const genre = req.body.genre;
-  const serie = req.body.serie;
-  const imgPath = req.file.url;
-  const imgName = req.file.originalname;
-  const newGame = new Game({
-    name,
-    genre,
-    serie,
-    publisher,
-    firstrelease,
-    summary,
-    imgPath,
-    imgName
-  });
+router.post("/addlocalgame", uploadCloud.single("photo"),
+  async (req, res, next) => {
+    //console.log("--------", req.body.genre)
+    const { name, publisher, firstrelease, summary } = req.body;
 
-  newGame
-    .save()
-    .then(() => {
-      res.redirect("/localgames");
-    })
-    .catch(err => {
-      console.log("Error while adding the game", err);
+    //PARENT
+    let parentSerieId = req.body.parent;
+    let serie = "";
+
+    if (parentSerieId == "0") {
+      serie = name;
+    } else {
+      let parent = await getOneGame(parentSerieId);
+      serie = parent.serie + "," + name;
+    }
+
+    const genre = req.body.genre;
+    const imgPath = req.file.url;
+    const imgName = req.file.originalname;
+
+    const newGame = new Game({
+      name,
+      genre,
+      serie: serie,
+      publisher,
+      firstrelease,
+      summary,
+      imgPath,
+      imgName
     });
-});
+
+    Game.exists({ "name": name }).then(g => {
+      if (g) {
+        console.log("Game already exists", g);
+      } else {
+        console.log("New game", g);
+        //Add
+        newGame
+          .save()
+          .then(() => {
+            res.redirect("/localgames");
+          })
+          .catch(err => {
+            console.log("Error while adding the game", err);
+          });
+      }
+    });
+  }
+);
 
 //show a game's detail
-router.get("/detailslocalgame/:gameId", (req, res) => {
-  Game.findById(req.params.gameId)
-    .then(game => {
-      res.render("localgames/detailslocalgame", { game });
-    })
-    .catch(err => {
-      console.log("Error while retrieving the game", err);
+router.get("/detailslocalgame/:gameId", async (req, res) => {
+
+  try {
+    
+    let gameFound = await getGameById(req.params.gameId);    
+    let ltl = await getLocalGameTimeLine(gameFound.name);
+    
+    let formatedResponse = await mapCollection(ltl);
+
+    res.render("localgames/detailslocalgame", {
+      game: gameFound,
+      formatedResponse
     });
+
+  } catch (error) {
+      console.log("Error while retrieving the game", error);
+  }
+  
 });
 
 //edit and update a game
@@ -87,6 +122,7 @@ router.get("/updatelocalgame/:gameId", (req, res) => {
     });
 });
 
+//update
 router.post("/updatelocalgame/:gameId",
   uploadCloud.single("photo"),
   (req, res) => {
@@ -155,5 +191,79 @@ router.get("/deletelocalgame/:id", (req, res) => {
   }
 
 });
+
+async function getOneGame(gameId){
+  try {
+    let game = await Game.findById(gameId);
+    return game;
+  } catch (error) {
+    console.log("Error while retrieving the games", error);
+  }
+}
+
+async function getGames(){
+  try {
+    let games = await Game.find();
+    return games;
+  } catch (error) {
+    console.log("Error while retrieving the games", error);
+  }
+}
+
+async function getGameById(gameId) {
+  try {
+    let game = await Game.findById(gameId);
+    return game;
+  } catch (error) {
+    console.log("Error while retrieving the games", error);
+  }
+}
+
+async function getLocalGameTimeLine(gameName) {
+
+  try {
+    let localTimeLine = await Game.find({
+      serie: { $regex: new RegExp("^" + gameName + "*") }
+    });
+
+    return localTimeLine;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function mapCollection(collection) {
+  
+  collection.sort(compare);
+
+  let result = [];
+
+  for (let i = 0; i < collection.length; i++) {
+    result.push({
+      key: i + 1,
+      name: collection[i].name,
+      first_release_date: collection[i].firstrelease,
+      parent: i,
+      url: collection[i].imgPath,
+      link: collection[i]._id
+    });
+  }
+
+  return await result;
+}
+
+function compare(a, b) {
+  const genreA = a.firstrelease;
+  const genreB = b.firstrelease;
+
+  let comparison = 0;
+  if (genreA > genreB) {
+    comparison = 1;
+  } else if (genreA < genreB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
 
 module.exports = router;

@@ -31,26 +31,12 @@
     </div>
 
     <div class="form-group">
-      <label for="serie">Serie: </label>
-      <select class="form-control" name="serie" id="selectSerie">
-        <option value="selectserie">Select</option>
-        <option value="mario">Mario</option>
-        <option value="mariosonic">Mario/Sonic</option>
-        <option value="pokemon">Pokémon</option>
-        <option value="grandtheftauto">Grand Theft Auto</option>
-        <option value="fifa">FIFA</option>
-        <option value="callofduty">Call of Duty</option>
-        <option value="wii">Wii</option>
-        <option value="thesims">The Sims</option>
-        <option value="sonic">Sonic</option>
-        <option value="need">Need</option>
-        <option value="forspeed">For Speed</option>
-        <option value="finalfantasy">Final Fantasy</option>
-        <option value="tetris">Tetris</option>
-        <option value="thelegendofzelda">The Legend of Zelda</option>
-        <option value="proevolutionsocce">Pro Evolution Socce</option>
-        <option value="lego">Lego</option>
-        <option value="others">Others</option>
+      <label for="serie">Parent: </label>
+      <select class="form-control" name="parent" id="selectParent">
+        <option value="0">Parent</option>
+        {{#each games}}
+        <option value="{{_id}}">{{name}}</option>
+        {{/each}}
       </select>
     </div>
 
@@ -69,7 +55,7 @@
       <textarea class="form-control" name="summary" id="summary"></textarea>
     </div>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-around m-5">
     <button class="btn btn-primary" type="submit">Add GAME</button>
     <a class="btn btn-danger" href="/localgames">Cancel</a>
     </div>
