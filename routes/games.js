@@ -56,6 +56,7 @@ router.get("/games-search", async (req, res) => {
 });
 
 router.get("/games/:gameId", async (req, res) => {
+  
   let gameId = req.params.gameId;
 
   const response = await gameDetails(gameId);
@@ -71,7 +72,8 @@ router.get("/games/:gameId", async (req, res) => {
   res.render("games/game-details.hbs", {
     gameId,
     games: response,
-    formatedResponse
+    formatedResponse,
+    user: req.user
   });
 
 });

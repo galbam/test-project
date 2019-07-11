@@ -149,15 +149,23 @@ app.use(passport.session());
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
+app.use((req, res, next) => {
+    app.locals.user = req.user;
+    // app.locals.localgame = req.user;
+    next()
+})
 
 const index = require('./routes/index');
 app.use('/', index);
 
+app.use('/', require("./routes/auth-routes"));
 app.use("/", require("./routes/games"));
 app.use("/", require("./routes/rawg"));
 app.use("/", require("./routes/countries"));
 app.use("/", require("./routes/localgames"));
-app.use('/', require("./routes/auth-routes"));
+// app.use('/', require("./routes/protected"));
 
+// app.use("/protected", require("./routes/protected"));
+// app.use("/", require("./routes/auth"));
 
 module.exports = app;

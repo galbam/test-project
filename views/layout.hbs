@@ -41,18 +41,23 @@
 
 			<nav class="main-menu">
 				<ul>
-					{{# if condition}}
+					{{#if user}}
+					<li><a href="/">GAME SHINKA進化</a></li>
+					<li><a href="/games">Show All Games</a></li>
 					<li><a href="/localgames">Local Games</a></li>
 					<li><a href="/addlocalgame">Add Games</a></li>
+					<li><a href="/favorites">Favorites Games</a></li>
+
 					{{else}}
 					<li><a href="/">GAME SHINKA進化</a></li>
 					<li><a href="/games">Show All Games</a></li>
 					{{/if}}
 				</ul>
 		 	</nav>
-			 {{# if condition}}
+
+			 {{#if user}}
 			 <div class="user-panel">
-				<a href="/">Logout</a>
+				<a href="/logout">Logout</a>
 			</div>
 			{{else}}
 			<div class="user-panel">

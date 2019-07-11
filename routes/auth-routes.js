@@ -6,6 +6,7 @@ const ensureLogin = require("connect-ensure-login");
 
 // User model
 const User = require("../models/User");
+const Favorite = require("../models/Favorite")
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -43,7 +44,7 @@ authRoutes.post("/signup", (req, res, next) => {
       if (err) {
         res.render("auth/signup", { message: "Something went wrong" });
       } else {
-        res.redirect("/");
+        res.redirect("/login");
       }
     });
   })
@@ -73,7 +74,7 @@ authRoutes.post("/login", passport.authenticate("local", {
 
 authRoutes.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/login");
+  res.redirect("/");
 });
 
 
@@ -84,7 +85,7 @@ authRoutes.get(
   "/auth/github/callback",
   passport.authenticate("github", {
     successRedirect: "/localgames",
-    failureRedirect: "/login"
+    failureRedirect: "/"
   })
 );
 
@@ -96,8 +97,11 @@ authRoutes.get(
   '/auth/google/callback', 
   passport.authenticate('google',{
     successRedirect: "/localgames",
-    failureRedirect: "/login"
+    failureRedirect: "/"
   })
 );
+
+
+
 
 module.exports = authRoutes;

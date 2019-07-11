@@ -4,6 +4,9 @@
 
 <div class="container">
 <h1>Game details</h1>
+
+
+
   {{#each games}}
   <div class="row">
     <div class="col mx-auto">
@@ -30,12 +33,44 @@
             <li class="list-inline-item">
               <h5 class="font-weight-bold mb-0 d-block">{{game.popularity}}</h5>
             </li>
+             {{#if ../user}}
             <li class="list-inline-item">
-              <button class="btn btn-warning" id="game-favorite">Favorite</button>
+            <a href="/favorites"><div class="btn btn-warning" id="game-favorite">Favorite <i class="far fa-thumbs-up"></i></div></a>
             </li>
+            {{/if}}
           </ul>
         </div>
+      
+        {{!-- <div class="bg-light p-4 d-flex justify-content-end text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{game.total_rating}}</h5>
+            </li>
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{game.popularity}}</h5>
+            </li>
+             {{#if user}}
+            <li class="list-inline-item">
+            <a href="/favorites"><div class="btn btn-warning" id="game-favorite">Favorite<i class="fab fa-google"></i></div></a>
+            </li>
+            {{/if}}
+          </ul>
+        </div>
+        <div class="bg-light p-4 d-flex justify-content-end text-center">
+          <ul class="list-inline mb-0"></ul>
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{game.total_rating}}</h5>
+            </li>
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">{{game.popularity}}</h5>
+            </li>
+          </ul>
+        </div> --}}
+        
+         
+        
 
+			 
         <div class="py-4">
           <h5 class="mb-3">Summary</h5>
           <div class="p-4 bg-light rounded shadow-sm">
@@ -98,6 +133,7 @@
     </div>
   </div>
   {{/each}}
+
   <div>
   <h2 class="mb-3">Timeline</h2>
   <div id="myDiagramDiv" style="border: solid 1px black; height: 400px">
