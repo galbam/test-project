@@ -21,12 +21,18 @@ const flash = require("connect-flash");
 const User = require('./models/User')
 
 mongoose
-  .connect('mongodb://localhost/test-project', {useNewUrlParser: true})
+  //.connect('mongodb://localhost/test-project', {useNewUrlParser: true})
+  .connect(
+    "mongodb://heroku_7xmh95wp:lhm03is34fdclt7kv9bvp4g2q1@ds249967.mlab.com:49967/heroku_7xmh95wp/test-project",
+    { useNewUrlParser: true }
+  )
   .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    console.log(
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`
+    );
   })
   .catch(err => {
-    console.error('Error connecting to mongo', err)
+    console.error("Error connecting to mongo", err);
   });
 
 const app_name = require('./package.json').name;
@@ -101,7 +107,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/github/callback"
+      callbackURL: "https://game-shinka.herokuapp.com/auth/github/callback"
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ githubId: profile.id })
@@ -120,25 +126,27 @@ passport.use(
 );
 
 ///Google
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/google/callback"
-},
-(accessToken, refreshToken, profile, done) => {
-  User.findOne({ googleId: profile.id })
-    .then(user => {
-      if (user) return done(null, user);
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "https://game-shinka.herokuapp.com/auth/google/callback"
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ googleId: profile.id })
+        .then(user => {
+          if (user) return done(null, user);
 
-      return User.create({ googleId: profile.id }).then(newUser => {
-        return done(null, newUser);
-      });
-    })
-    .catch(err => {
-      done(err);
-    });
-}
-)
+          return User.create({ googleId: profile.id }).then(newUser => {
+            return done(null, newUser);
+          });
+        })
+        .catch(err => {
+          done(err);
+        });
+    }
+  )
 );
 
 
