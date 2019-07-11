@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box; }
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif; }
+
 /*------------------
   Header section
 ---------------------*/
@@ -10,12 +15,13 @@
   background: #131313;
   clear: both;
   overflow: hidden;
-  padding: 15px 50px;
+  padding-left: 1vw;
+  padding-right: 1vw;
   border-bottom: 1px solid #ffb320; }
 
 .user-panel {
   float: right;
-  font-weight: 500;
+  font-weight: 300;
   background: #ffb320;
   padding: 8px 28px;
   margin-top: 15px;
@@ -66,14 +72,17 @@
   font-weight: 500;
   color: #aeaeae; }
 
+.footer-menu {
+  list-style: none;
+  float: right; }
+
 .container-home {
-  height: 100vh;
   margin: 0;
   padding: 0;
   background: #333131; }
 
 .slider {
-  height: 100vh;
+  height: 83vh;
   background: url("/img/slider-1.jpg");
   background-size: cover;
   background-position: center;
@@ -111,11 +120,11 @@
   color: #fff;
   position: absolute; }
 
-.login-container {
-  height: 100vh;
+.signin-container {
+  height: 80vh;
   margin: 0;
   padding: 0;
-  background: url("/img/review-bg.png");
+  background: url("/img/review-bg-2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -123,68 +132,16 @@
   justify-content: center;
   align-items: center; }
 
-.btn-primary {
-  border: 0px;
-  border-radius: 0px;
-  margin-top: 20px;
-  margin-left: 70px;
-  font-size: 19px;
-  width: 200px; }
-
-.btn-default {
-  border: 0px;
-  border-radius: 0px;
-  margin-top: 20px;
-  font-size: 19px;
-  width: 200px; }
-
-.btn-default:hover {
-  background: #454545; }
-
-h1 {
-  font-size: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #131313; }
-
-.form-control {
-  background: transparent;
-  margin-top: 17px;
-  border-radius: 0px;
-  font-size: 19px; }
-
-.btn-info {
-  border-radius: 0px;
-  border: 0px;
-  margin-top: 20px;
-  margin-left: 30px;
-  width: 480px;
-  height: 40px;
-  font-size: 19px;
-  transition: 1s; }
-
-.btn-github {
-  border: 0px;
-  border-radius: 0px;
-  margin-top: 0px;
-  margin-left: 70px;
-  font-size: 15px;
-  width: 200px; }
-
-.btn-google {
-  background: #ffb320;
-  border: 0px;
-  border-radius: 0px;
-  margin-top: 0px;
-  font-size: 15px;
-  width: 200px; }
-
-.btn-github:hover {
-  background: transparent;
-  border: 2px solid #ffb320; }
-
-.btn-google:hover {
-  background: transparent;
-  border: 2px solid #ffb320; }
+.login-container {
+  height: 80vh;
+  margin: 0;
+  padding: 0;
+  background: url("/img/recent-game-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 /*# sourceMappingURL=style.css.map */

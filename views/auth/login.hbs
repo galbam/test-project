@@ -1,41 +1,74 @@
 {{!-- <div class="login-container">
-  <h1></h1>
-  <div class="login">
-  <div clsss="form-login">
-    <form action="/login" method="POST">
-
-    <label for="username">Username:</label>
-    <input type="text" name="username"><br>
-  
-    <label for="password">Password:</label>
-    <input type="password" name="password"><br>
-
-    <input type="submit" value="Log In">
+ <form action="/login" method="POST" id="form-container" class="p-3 mb-2 bg-dark text-white">
+    <div class="d-flex flex-column.justify-content-around">
+    <dir class="p-2">
+          <h1 class="text-center">Welcom Back!</h1>
+    </div>
+    <div class="p-2"> 
+          <input id="username" type="text" class="form-control" name="username" placeholder="username">
+    </div>
+    <div class="p-2"> 
+          <input id="password" type="password" class="form-control" name="password" placeholder="password">
+    </div>
+    <div class="p-2"> 
+      {{#if message}}
+              <div class="error-message">{{ message }}</div>
+      {{/if}}
+    </div>
+    <div class="p-2"> 
+      <h5 class="text-center"><div class="btn btn-warning btn-lg">Log in Now</div><br>or</h5>
+    </div>
+    <div class="p-2"> 
+      <div class="d-flex justify-content-around">
+            <a href="/github"><div class="btn btn-outline-light">Log in via <i class="fab fa-github"></i></div></a>
+            <a href="/google"><div class="btn btn-outline-light">Log in via <i class="fab fa-google"></i></div></a>
+      </div>
+    </div>
+    </div>  
     </form>
-  </div>
-  <div class="social-login">
-    <a href="/github">Login via github</a><br>
-    <a href="/google">Login via google</a>
-  </div>
-{{#if message}}
-    <div class="error-message">{{ message }}</div>
-{{/if}}
-</div>
 </div> --}}
+
+
+
 <div class="login-container">
-<div class="container">
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6" style="background: rgba(255,255,255,0,1);margin-top: 60px;height:430px;">
-      <a href="#"><div class="btn btn-primary">Sign up</div></a>
-      <a href="#"><div class="btn btn-default">Login</div></a>
-      <h1 class="text-center">Sign up for free</h1>
-           <input type="text" class="form-control" name="username" placeholder="username">
-           <input type="password" class="form-control" name="password" placeholder="password">
-           <a href="#"><div class="btn btn-info">Sign up Now!</div></a>
-       </div>
-    <div class="col-md-3"></div>
+    
+<form action="/login" method="POST" id="form-container" class="p-3 mb-2 bg-dark text-white">
+
+<div class="d-flex flex-column.justify-content-around">
+  <dir class="p-2">
+          <h1 class="text-center">Welcom Back!</h1>
   </div>
+
+  <div class="p-2">
+    {{!-- <label for="username">Username:</label> --}}
+    <input type="text" name="username" placeholder="username" style="width:18vw;height:4vh;">
+  </div>
+
+  <div class="p-2">
+    {{!-- <label for="password">Password:</label> --}}
+    <input type="password" name="password" placeholder="password" style="width:18vw;height:4vh;">
+  </div>
+
+  <div class="p-2">
+  {{#if message}}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
+  </div>
+
+  <div class="p-2 d-flex justify-content-end">
+    <input type="submit" value="Log In">
+  </div>
+
+      <div class="p-2"> 
+      <div class="d-flex justify-content-around">
+            <a href="/github"><div class="btn btn-outline-light">Log in via <i class="fab fa-github"></i></div></a>
+            <a href="/google"><div class="btn btn-outline-light">Log in via <i class="fab fa-google"></i></div></a>
+      </div>
+    </div>
+
+</form>
+{{!-- <a href="/github">Login via github</a>
+<a href="/google">Login via google</a> --}}
+
 </div>
-</div>
-  
+

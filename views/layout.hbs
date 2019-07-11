@@ -26,6 +26,11 @@
 </head>
 
 <body>
+<!-- facebookshare start-->
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=1729421983827320&autoLogAppEvents=1"></script>
+<!-- facebookshare end-->
+
 	<header>
 		<header class="header-section">
 		<div>
@@ -36,13 +41,24 @@
 
 			<nav class="main-menu">
 				<ul>
+					{{# if condition}}
+					<li><a href="/localgames">Local Games</a></li>
+					<li><a href="/addlocalgame">Add Games</a></li>
+					{{else}}
 					<li><a href="/">GAME SHINKA進化</a></li>
-					<li><a href="/games">Games IGDB</a></li>
+					<li><a href="/games">Show All Games</a></li>
+					{{/if}}
 				</ul>
 		 	</nav>
-		  <div class="user-panel">
-				<a href="/login">Login</a>  /  <a href="/signup">Register</a>
+			 {{# if condition}}
+			 <div class="user-panel">
+				<a href="/">Logout</a>
 			</div>
+			{{else}}
+			<div class="user-panel">
+				<a href="/login">Login</a>  /  <a href="/signup">Signup</a>
+			</div>
+			 {{/if}}
 		</div>
 	</header>
 
@@ -51,10 +67,16 @@
 	<!-- Footer section -->
 	<footer class="footer-section">
 	<div class="footer-container">
+
+	<div>
 	<p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved  <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   </p>
+	</div>
+  <div class="footer-menu">
+	<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+	</div>
 	</div>
 	</footer>
 	<!-- Footer section end -->

@@ -53,7 +53,7 @@ authRoutes.post("/signup", (req, res, next) => {
 });
 
 authRoutes.get("/login", (req, res, next) => {
-  res.render("auth/login");
+  res.render("auth/login", { "message": req.flash("error") });
 });
 
 authRoutes.post("/login", passport.authenticate("local", {
@@ -63,13 +63,13 @@ authRoutes.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
-authRoutes.get("/private-page", ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render("private", { user: req.user });
-});
+// authRoutes.get("/private-page", ensureLogin.ensureLoggedIn(), (req, res) => {
+//   res.render("private", { user: req.user });
+// });
 
-authRoutes.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-});
+// authRoutes.get("/login", (req, res, next) => {
+//   res.render("auth/login", { "message": req.flash("error") });
+// });
 
 authRoutes.get("/logout", (req, res) => {
   req.logout();
