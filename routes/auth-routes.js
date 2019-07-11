@@ -6,7 +6,7 @@ const ensureLogin = require("connect-ensure-login");
 
 // User model
 const User = require("../models/User");
-const Favorite = require("../models/Favorite")
+const Favorite = require("../models/Favorite");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -49,8 +49,8 @@ authRoutes.post("/signup", (req, res, next) => {
     });
   })
   .catch(error => {
-    next(error)
-  })
+    next(error);
+  });
 });
 
 authRoutes.get("/login", (req, res, next) => {
@@ -64,14 +64,6 @@ authRoutes.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
-// authRoutes.get("/private-page", ensureLogin.ensureLoggedIn(), (req, res) => {
-//   res.render("private", { user: req.user });
-// });
-
-// authRoutes.get("/login", (req, res, next) => {
-//   res.render("auth/login", { "message": req.flash("error") });
-// });
-
 authRoutes.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
@@ -84,8 +76,8 @@ authRoutes.get("/github", passport.authenticate("github"));
 authRoutes.get(
   "/auth/github/callback",
   passport.authenticate("github", {
-    successRedirect: "/localgames",
-    failureRedirect: "/"
+    successRedirect: "/",
+    failureRedirect: "/login"
   })
 );
 
@@ -96,12 +88,9 @@ authRoutes.get('/google',
 authRoutes.get(
   '/auth/google/callback', 
   passport.authenticate('google',{
-    successRedirect: "/localgames",
-    failureRedirect: "/"
+    successRedirect: "/",
+    failureRedirect: "/login"
   })
 );
-
-
-
 
 module.exports = authRoutes;
