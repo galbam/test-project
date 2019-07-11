@@ -1,33 +1,30 @@
-<h1>LIST OF GAMES</h1>
-
-<form action="/games-search" method="GET">
-  <input type="text" name="gameName">
-  <button type="submit">Search</button>
-</form>
-
 <div class="container">
-  <div class="row">
+<h1>List of Games</h1>
+
+  <div class="form-group">
+    <form action="/games-search" method="GET">
+      <div class="d-flex justify-content-between">
+        <input class="form-control" type="text" name="gameName">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row mb-3">
     
     {{#each games}}
-
       {{#if name}}
         {{#if cover.url}}
           {{#if first_release_date}}
           
             <div class="col-md-6">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex">
-                    <div>
-                      <img src="{{cover.url}}">
-                    </div>
-                    <div class="card">
-                      {{!-- <a href="/games/{{id}}">{{name}}</a> --}}
-                      <a href="/games/{{id}}">{{name}}</a>
-                      <p>{{version_parent}}</p>
-                      <p>{{toDate first_release_date}}</p>
-                    </div>
-                  </div>
+              <div class="d-flex flex-row border rounded">
+                <div class="p-0">
+                  <img class="img-thumbnail border-0" src="{{cover.url}}">
+                </div>
+                <div class="pl-3 pt-2 pr-2 pb-2 border-left">
+                  <a class="text-primary" href="/games/{{id}}">{{name}}</a>
+                  <p class="text-info">{{toDate first_release_date}}</p>
                 </div>
               </div>
             </div>
@@ -35,10 +32,9 @@
           {{/if}}
         {{/if}}
       {{/if}}
-
     {{/each}}
 
   </div>
+  <a href="/games-next/50">NextPage</a>
 </div>
 <br>
-<a href="/games-next/50">NextPage</a>

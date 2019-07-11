@@ -312,20 +312,27 @@ function getCoverBig(coverUrlToBig){
 
 async function mapCollection(collection){
 
-  collection.sort(compare);
+  let filteredArray = collection.filter(f =>{
+    if (f.first_release_date && f.cover) {
+      return f;
+    }
+  });
 
+  filteredArray.sort(compare);
+  
   let result = [];
 
-  for (let i = 0; i < collection.length; i++) {
-
-    result.push({
-      key: i + 1,
-      name: collection[i].name,
-      first_release_date: formatUnixDate(collection[i].first_release_date),
-      parent: i,
-      url: getCoverBig(collection[i].cover.url)
-    });
-  
+  for (let i = 0; i < filteredArray.length; i++) {
+      result.push({
+        key: i + 1,
+        name: filteredArray[i].name,
+        first_release_date: formatUnixDate(
+          filteredArray[i].first_release_date
+        ),
+        parent: i,
+        url: getCoverBig(filteredArray[i].cover.url),
+        link: filteredArray[i].id
+      });
   }
 
   return await result;
@@ -335,13 +342,16 @@ async function mapOnlyTheGame(onlyTheGame) {
   let result = [];
   let i = 0;
 
-  result.push({
-    key: i + 1,
-    name: onlyTheGame.name,
-    first_release_date: formatUnixDate(onlyTheGame.first_release_date),
-    parent: i,
-    url: getCoverBig(onlyTheGame.cover.url)
-  });
+  if (onlyTheGame.cover && onlyTheGame.first_release_date) {
+    result.push({
+      key: i + 1,
+      name: onlyTheGame.name,
+      first_release_date: formatUnixDate(onlyTheGame.first_release_date),
+      parent: i,
+      url: getCoverBig(onlyTheGame.cover.url),
+      link: onlyTheGame.id
+    });
+  }
 
   return await result;
 }

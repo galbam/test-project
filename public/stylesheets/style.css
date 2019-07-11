@@ -144,4 +144,7 @@ body {
   justify-content: center;
   align-items: center; }
 
+.profile-header {
+  transform: translateY(5rem); }
+
 /*# sourceMappingURL=style.css.map */
