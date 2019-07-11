@@ -23,7 +23,7 @@ const User = require('./models/User')
 mongoose
   //.connect('mongodb://localhost/test-project', {useNewUrlParser: true})
   .connect(
-    "mongodb://heroku_7xmh95wp:lhm03is34fdclt7kv9bvp4g2q1@ds249967.mlab.com:49967/heroku_7xmh95wp/test-project",
+    "mongodb://heroku_7xmh95wp:lhm03is34fdclt7kv9bvp4g2q1@ds249967.mlab.com:49967/heroku_7xmh95wp",
     { useNewUrlParser: true }
   )
   .then(x => {
