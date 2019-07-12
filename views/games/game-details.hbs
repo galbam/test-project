@@ -28,10 +28,10 @@
         <div class="bg-light p-4 d-flex justify-content-end text-center">
           <ul class="list-inline mb-0">
             <li class="list-inline-item">
-              <h5 class="font-weight-bold mb-0 d-block">{{game.total_rating}}</h5>
+              <h5 class="font-weight-bold mb-0 d-block">Rating: {{roundInfo game.total_rating}}</h5>
             </li>
             <li class="list-inline-item">
-              <h5 class="font-weight-bold mb-0 d-block">{{game.popularity}}</h5>
+              <h5 class="font-weight-bold mb-0 d-block">Popularity: {{roundInfo game.popularity}}</h5>
             </li>
              {{#if ../user}}
             <li class="list-inline-item">

@@ -32,6 +32,14 @@ hbs.registerHelper("json", context => {
   return JSON.stringify(context);
 });
 
+hbs.registerHelper("roundInfo", value => {
+  try {
+    return Math.round(value).toFixed(2);  
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 //ROUTERS
 router.get("/games", async (req, res) => {
   const response = await getGames();
