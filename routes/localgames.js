@@ -242,7 +242,7 @@ async function mapCollection(collection) {
     result.push({
       key: i + 1,
       name: collection[i].name,
-      first_release_date: collection[i].firstrelease,
+      first_release_date: formatDate(collection[i].firstrelease),
       parent: i,
       url: collection[i].imgPath,
       link: collection[i]._id
